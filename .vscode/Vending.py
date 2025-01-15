@@ -1,65 +1,46 @@
 #Membuat kode program untuk sebuah Vending Machine
-Mizone = 4000
-Pocari = 6000
-Teh_Pucuk = 3000
-Beng_beng = 2500
+def hitung_total_dan_kembalian(harga_satuan, uang, kembalian):
+    try:
+        total = harga_satuan * jumlah
+        kembalian = uang - total
+        if kembalian >= 0:
+            return total, kembalian
+        else:
+            return None, "Uang anda tidak cukup"
+    except ValueError:
+        print("Masukkan angka yang valid untuk uang dan jumlah")
+        return None, None
+
+#Daftar harga menggunakan dictionary
+daftar_harga = {
+    1: ("Mizone", 4000),
+    2: ("Pocari", 6000),
+    3: ("Teh Pucuk", 3000),
+    4: ("Beng-beng", 2500),
+}
 
 while True:
     print("===SELAMAT DATANG DI VENDING MACHINE===")
-    print("Pilihan Menu:")
-    print("1. Mizone = Rp.4.000/pcs")
-    print("1. Pocari = Rp.6.000/pcs")
-    print("1. Teh Pucuk = Rp.3.000/pcs")
-    print("1. Beng Beng = Rp.2.500/pcs")
+    for k, v in daftar_harga.items():
+        print(f"{k}. {v[0]} = Rp.{v[1]}/pcs")
     print("5. Keluar")
 
+    try:
+        opsi = int(input("Pilih menu (1-5): "))
+        if opsi == 5:
+            print("Terima kasih telah berbelanja")
+            break
 
-    opsi = int(input("Pilih menu (1-5): "))
+        minuman__pilihan, harga = daftar_harga.get(opsi, (None, None))
+        if opsi is None:
+            print("Pilihan tidak tersedia")
+            continue
 
-    if opsi == 1 :
-        uang = float(input("Masukkan uang Anda: "))
-        jumlah = int(input("Masukkan jumlah yang ingin dibeli: "))        
-        if uang >= Mizone:
-            total = Mizone * jumlah
-            kembalian = uang - total
+        uang = float(input("Masukkan jumlah uang anda: "))
+        jumlah = int(input("Masukkan jumlah barang yang dibeli: "))
+        total, kembalian = hitung_total_dan_kembalian(harga, uang, jumlah)
+        if total is not None:
             print(f"Total harga: {total}")
             print(f"Kembalian: {kembalian}")
-        else:
-            print("Uang anda tidak cukup")
-    elif opsi == 2 :
-        uang = float(input("Masukkan uang Anda: "))
-        jumlah = int(input("Masukkan jumlah yang ingin dibeli: "))                
-        if uang >= Pocari:
-            total = Pocari * jumlah
-            kembalian = uang - total
-            print(f"Total harga: {total}")
-            print(f"Kembalian: {kembalian}")
-        else:
-            print("Uang anda tidak cukup")
-    elif opsi == 3 :
-        uang = float(input("Masukkan uang Anda: "))
-        jumlah = int(input("Masukkan jumlah yang ingin dibeli: "))        
-        if uang >= Teh_Pucuk:
-            total = Teh_Pucuk * jumlah
-            kembalian = uang - total
-            print(f"Total harga: {total}")
-            print(f"Kembalian: {kembalian}")
-        else:
-            print("Uang anda tidak cukup")
-    elif opsi == 4 :
-        uang = float(input("Masukkan uang Anda: "))
-        jumlah = int(input("Masukkan jumlah yang ingin dibeli: "))        
-        if uang >= Beng_beng:
-            total = Beng_beng * jumlah
-            kembalian = uang - total
-            print(f"Total harga: {total}")
-            print(f"Kembalian: {kembalian}")
-        else:
-            print("Uang anda tidak cukup")
-    elif opsi == 5:
-        print("Terima kasih telah berbelanja")
-        break
-    else:
-        print("!! Masukkan opsi yang tersedia !!")
-        
-        
+    except ValueError:
+        print("Masukkan angka yang valid")    
